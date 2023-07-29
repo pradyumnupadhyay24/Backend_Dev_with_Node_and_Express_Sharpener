@@ -1,0 +1,14 @@
+{
+  "name": "task11",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev" : "npx nodemon index.js"
+  },
+  "author": "PRADYUMN",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
