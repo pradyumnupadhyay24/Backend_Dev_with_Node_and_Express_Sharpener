@@ -2,18 +2,21 @@ const express = require("express");
 
 const app = express();
 
-//  *** Adding Middleware ***
-// use allows us to add a new middleware function.
-app.use((req, res, next) => {
-  console.log("In the middleware!");
-  next(); //  Allows the request to continue to the next middleware in line.
-});
+//  *** Using Express Router ***
+const bodyParser = require("body-parser");
 
-//  *** How Middleware Works ***
+app.use(bodyParser.urlencoded({ extended: false })); // with this we get product details in TERMINAL as Key : Value
+
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");  // create shop route
+
+app.use('/admin', adminRoutes);  // *** Filtering Paths ***
+app.use(shopRoutes); // use shop route
+
+// *** Adding a 404 Error Page ***
 app.use((req, res, next) => {
-  console.log("In another middleware !");
-  res.send("<h1>Hello from Express !</h1>");
-});
+  res.status(404).send('<h1>Page not found</h1>')  // 404 code for Page not found.
+})
 
 //  *** Express js Looking Behind the Scenes ***
-app.listen(3000 ,() => console.log("Server Started"));
+app.listen(3000,console.log("Server Started"));
