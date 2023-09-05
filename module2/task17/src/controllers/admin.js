@@ -17,13 +17,11 @@ exports.postAddProduct = (req, res, next) => {
     title: title,
     price: price,
     imageUrl: imageUrl,
-    description: description,
+    description: description
+  }).then(result => {
+    console.log(result);
+    console.log('Created product ' + result.dataValues.title);
   })
-    .then((result) => {
-      // console.log(result);
-      console.log("PRODUCT ADDED");
-      res.redirect("/admin/products");
-    })
     .catch((err) => {
       console.log(err);
     });

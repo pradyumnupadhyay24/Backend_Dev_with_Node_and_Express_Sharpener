@@ -30,7 +30,7 @@ app.use(errorController.get404);
 sequelize
 .sync()
 .then(result => {
-    console.log(result);
+    //console.log(result);
     app.listen(PORT , () =>{
         console.log(`Server Started at PORT ${PORT}`)
     });
