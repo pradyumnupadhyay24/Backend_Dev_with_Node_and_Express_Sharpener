@@ -6,11 +6,12 @@ const { PORT } = require('./confiig/serverConfig');
 
 const bodyParser = require('body-parser');
 
-const sequelize = require('./util/database');
-
 const errorController = require('./controllers/error');
 
 const app = express();
+
+//const db = require('./util/database')
+const sequelize = require("./util/database");
 
 app.set('view engine', 'ejs');
 app.set('views', 'src/views');
@@ -24,16 +25,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
+// db.execute('SELECT * FROM products')
+// .then((result) => {
+//     console.log(result[0], result[1]);
+// })
+// .catch((er) => {
+//     console.log(err);
+// });
 
 app.use(errorController.get404);
 
+
 sequelize
-.sync()
-.then(result => {
+  .sync()
+  .then((result) => {
     console.log(result);
     app.listen(PORT , () =>{
         console.log(`Server Started at PORT ${PORT}`)
     });
-}).catch(err => {
+  })
+  .catch((err) => {
     console.log(err);
-});
+  });
