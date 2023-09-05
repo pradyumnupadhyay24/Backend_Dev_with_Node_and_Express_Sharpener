@@ -102,7 +102,7 @@ exports.getProducts = (req, res, next) => {
   //       path: "/admin/products",
   //     });
   //   })
-  Product.fetchAll()
+  Product.findAll()
     .then((products) => {
       res.render("admin/products", {
         prods: products,
