@@ -77,17 +77,17 @@ exports.postEditProduct = (req, res, next) => {
   // updatedProduct.save();
   // res.redirect("/admin/products");
   Product.findByPk(prodId)
-    .then((product) => {
-      product.title = updatedTitle;
-      product.price = updatedPrice;
-      product.description = updatedDesc;
-      product.imageUrl = updatedImageUrl;
-      return product.save();
-    })
-    .then((result) => {
-      console.log("UPDATED PRODUCT !");
-      res.redirect("/admin/products");
-    })
+  .then(product => {
+    product.title = updatedTitle;
+    product.price = updatedPrice;
+    product.description = updatedDescription;
+    product.imageUrl = updatedImageUrl;
+    return product.save();
+  })
+  .then(result => {
+    console.log('updated product '+result.dataValues.title);
+    res.redirect('/admin/products');
+  })
     .catch((err) => {
       console.log(err);
     });
