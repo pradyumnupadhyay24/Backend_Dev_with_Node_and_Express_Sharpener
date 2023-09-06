@@ -8,6 +8,10 @@ const bodyParser = require('body-parser');
 
 const sequelize = require('./util/database');
 
+const Product = require('./models/product');
+const User = require('./models/user');
+
+
 const errorController = require('./controllers/error');
 
 const app = express();
@@ -27,10 +31,17 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+Product.belongsTo(User, {
+    constraints: true,
+    onDelete: 'CASCADE'
+});
+User.hasMany(Product);
+
 sequelize
-.sync()
+// Always overwrite tables. Never use in production
+.sync({force: true})
+//.sync()
 .then(result => {
-    //console.log(result);
     app.listen(PORT , () =>{
         console.log(`Server Started at PORT ${PORT}`)
     });
