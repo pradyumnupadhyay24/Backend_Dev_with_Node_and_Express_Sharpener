@@ -50,7 +50,7 @@ sequelize
 //.sync({force: true})
 .sync()
 .then(result => {
-    console.log(result);
+    //console.log(result);
     return User.findByPk(1);
 })
 .then(user => {
