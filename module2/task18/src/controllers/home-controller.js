@@ -2,6 +2,8 @@
 const path = require("path");
 
 const rootDir = require("../util/path");
+// Import models
+const Booking = require("../models/home-model");
 
 exports.getHome = (req, res, next) => {
   console.log("GET IT");
