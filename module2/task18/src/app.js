@@ -11,7 +11,7 @@ const homeRoutes = require("./routes/homeroutes");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'arc/public')));
 
 app.use(homeRoutes);
 
