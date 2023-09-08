@@ -10,6 +10,7 @@ const sequelize = require("./util/database");
 
 const homeRoutes = require("./routes/homeroutes");
 
+var cors = require("cors");
 const app = express();
 
 app.use(bodyParser.json({ extended: false }));
@@ -17,6 +18,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //route for home page
 app.use(homeRoutes);
+
+// It allows the browser to connect to a  server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources.
+app.use(cors());
 
 sequelize
 .sync()
