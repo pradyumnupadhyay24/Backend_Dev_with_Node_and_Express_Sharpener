@@ -31,6 +31,7 @@ exports.postAddProduct = (req, res, next) => {
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
+    console.log('edit mode not given. Sorry');
     return res.redirect("/");
   }
   const prodId = req.params.productId;
@@ -45,9 +46,15 @@ exports.getEditProduct = (req, res, next) => {
   //     product: product,
   //   });
   // });
-  Product.findByPk(prodId)
+  //Product.findByPk(prodId)
+  req.user
+  .getProducts({
+    where: {id: prodId}
+  })
     .then((product) => {
-      if (!product) {
+      const produ = products[0];
+      if (!produ) {
+        console.log('no product found, sorry. Redirecting');
         return res.redirect("/");
       }
       res.render("admin/edit-product", {
@@ -103,7 +110,8 @@ exports.getProducts = (req, res, next) => {
   //       path: "/admin/products",
   //     });
   //   })
-  Product.findAll()
+  req.user
+  .getProducts()
     .then((products) => {
       res.render("admin/products", {
         prods: products,
@@ -118,19 +126,19 @@ exports.getProducts = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  // Product.deleteById(prodId)
-  //   .then((product) => {
-  //     console.log(product);
-  //     res.redirect("/admin/products");
-  //   })
-  // Product.findById(prodId)
-  //   .then((product) => {
-  //     return product.deleteById;
-  //   })
-  //   .then((result) => {
-  //     console.log("PRODUCT DESTROYED!");
-  //     res.redirect("/admin/products");
-  //   })
+//   // Product.deleteById(prodId)
+//   //   .then((product) => {
+//   //     console.log(product);
+//   //     res.redirect("/admin/products");
+//   //   })
+//   // Product.findById(prodId)
+//   //   .then((product) => {
+//   //     return product.deleteById;
+//   //   })
+//   //   .then((result) => {
+//   //     console.log("PRODUCT DESTROYED!");
+//   //     res.redirect("/admin/products");
+//   //   })
   Product.findByPk(prodId)
     .then(product => {
       return product.destroy();
